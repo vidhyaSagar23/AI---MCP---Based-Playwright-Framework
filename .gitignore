@@ -1,0 +1,18 @@
+# Dependency directories
+node_modules/
+
+# Environment variables & Secrets (NEVER push API keys)
+.env
+
+# Build outputs
+dist/
+
+# Playwright test outputs
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# OS generated files
+.DS_Store
+Thumbs.db

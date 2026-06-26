@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["framework-core/*"],
+      "@agents/*": ["agents/*"]
+    }
+  },
+  "include": [
+    "agents/**/*",
+    "framework-core/**/*",
+    "tests/**/*"
+  ]
+}

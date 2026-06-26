@@ -1,0 +1,34 @@
+{
+  "name": "apex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "ai:harvest": "tsx agents/mcp-client/cli.ts harvest",
+    "ai:generate": "tsx agents/mcp-client/cli.ts generate",
+    "ai:pipeline": "tsx agents/mcp-client/cli.ts pipeline",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.0",
+    "@ai-sdk/google": "^4.0.0",
+    "@ai-sdk/groq": "^4.0.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@playwright/test": "^1.61.1",
+    "ai": "^7.0.2",
+    "commander": "^15.0.0",
+    "dotenv": "^17.4.2",
+    "exceljs": "^4.4.0",
+    "ts-morph": "^28.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}
