@@ -44,16 +44,21 @@ program
   .command('harvest')
   .description('Spin up the Browser Harvester Agent to map UI elements')
   .requiredOption('-u, --url <url>', 'Target base URL to harvest')
+  // NEW: Add optional state flag
+  .option('-s, --state <path>', 'Path to authentication state JSON (e.g., framework-core/.auth/state.json)')
   .action(async (options) => {
       console.log(`\n🚀 PHASE 1: Initiating Browser Harvester for ${options.url}`);
       
       const { client, transport } = await connectToServer('Browser Harvester', 'mcp-servers/browserHarvester.ts');
       
       try {
-          // FIXED: Explicitly typed as 'any' to resolve TypeScript strict 'unknown' payload checks
           const result: any = await client.callTool({
               name: 'harvest_page_locators',
-              arguments: { targetUrl: options.url }
+              arguments: { 
+                  targetUrl: options.url,
+                  // NEW: Pass the state path to the server if provided
+                  authStatePath: options.state 
+              }
           });
           console.log('\n📄 Harvester Results:\n', result.content[0].text);
       } catch (error: any) {

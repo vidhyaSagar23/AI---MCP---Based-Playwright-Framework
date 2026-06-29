@@ -19,7 +19,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                 inputSchema: {
                     type: 'object',
                     properties: {
-                        targetUrl: { type: 'string', description: 'The URL to scan' }
+                        targetUrl: { type: 'string', description: 'The URL to scan' },
+                        authStatePath: { type: 'string', description: 'Path to saved auth state JSON' }
                     },
                     required: ['targetUrl']
                 }
@@ -31,9 +32,20 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
     if (request.params.name === 'harvest_page_locators') {
         const url = request.params.arguments?.targetUrl as string;
+        const authPath = request.params.arguments?.authStatePath as string | undefined;
         
         const browser = await chromium.launch({ headless: true });
-        const page = await browser.newPage();
+        
+        // NEW: Conditionally load the enterprise session tokens
+        let context;
+        if (authPath && fs.existsSync(path.resolve(process.cwd(), authPath))) {
+            console.error(`🔒 Loading secure session from ${authPath}...`);
+            context = await browser.newContext({ storageState: path.resolve(process.cwd(), authPath) });
+        } else {
+            context = await browser.newContext();
+        }
+
+        const page = await context.newPage();
         await page.goto(url);
 
         // Simple script to extract inputs and buttons

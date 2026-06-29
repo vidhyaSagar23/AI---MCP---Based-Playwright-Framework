@@ -3,6 +3,7 @@ node_modules/
 
 # Environment variables & Secrets (NEVER push API keys)
 .env
+.auth
 
 # Build outputs
 dist/
